@@ -1,0 +1,3 @@
+/home/wena/Desktop/ocr_project/build/CMakeFiles/ocr_project.dir
+/home/wena/Desktop/ocr_project/build/CMakeFiles/edit_cache.dir
+/home/wena/Desktop/ocr_project/build/CMakeFiles/rebuild_cache.dir
