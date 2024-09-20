@@ -1,0 +1,22 @@
+sudo apt update
+sudo apt install tesseract-ocr tesseract-ocr-eng
+sudo apt install imagemagick fontforge
+
+
+text2image --fonts_dir=. --font='Indonesia License Plate' --outputbase=myfont.exp0 --text=myfont.txt --ptsize 12
+
+tesseract myfont.exp0.tif myfont.exp0 nobatch box.train
+
+unicharset_extractor myfont.exp0.box
+
+Create a font_properties file for your font with the following content: myfont 0 0 0 0 0
+
+shapeclustering -F font_properties -U unicharset myfont.exp0.tr
+mftraining -F font_properties -U unicharset -O myfont.unicharset myfont.exp0.tr
+cntraining myfont.exp0.tr
+
+mv inttemp myfont.inttemp
+mv normproto myfont.normproto
+mv pffmtable myfont.pffmtable
+mv shapetable myfont.shapetable
+

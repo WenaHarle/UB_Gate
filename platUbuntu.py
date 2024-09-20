@@ -1,8 +1,6 @@
 import cv2
 import pytesseract
-
-# Specify the Tesseract executable path if needed
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+import matplotlib.pyplot as plt
 
 # Load image
 img = cv2.imread('download.jpeg')
@@ -34,13 +32,15 @@ if license_plate is not None:
     x, y, w, h = cv2.boundingRect(license_plate)
     plate_img = gray[y:y + h, x:x + w]
 
-    # OCR the license plate
+    # Display license plate image using matplotlib
+    plt.imshow(plate_img, cmap='gray')
+    plt.title("Detected License Plate")
+    plt.show()
 
-    cv2.imshow('License Plate', plate_img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # OCR the license plate
     text = pytesseract.image_to_string(plate_img, config='--psm 8')
     print("Detected License Plate Text:", text)
 
 else:
     print("License plate not found")
+
