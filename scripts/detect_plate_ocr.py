@@ -1,8 +1,10 @@
 import cv2
 import pytesseract
+import os
 
-# Specify the Tesseract executable path if needed
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+tesseract_cmd = os.getenv("TESSERACT_CMD")
+if tesseract_cmd:
+    pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
 
 # Load image
 img = cv2.imread('download.jpeg')

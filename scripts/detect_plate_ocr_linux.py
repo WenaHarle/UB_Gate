@@ -1,6 +1,11 @@
 import cv2
 import pytesseract
 import matplotlib.pyplot as plt
+import os
+
+tesseract_cmd = os.getenv("TESSERACT_CMD")
+if tesseract_cmd:
+    pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
 
 # Load image
 img = cv2.imread('download.jpeg')

@@ -2,8 +2,7 @@ import cv2
 import os
 import time
 
-# RTSP URL
-rtsp_url = 'rtsp://admin:Super123!@10.39.93.120:554/Streaming/Channels/101'
+rtsp_url = os.getenv("RTSP_URL", "rtsp://<username>:<password>@<host>:554/Streaming/Channels/101")
 
 # Create a directory to save captured images
 output_dir = 'captured_cars'
@@ -17,11 +16,16 @@ MIN_SIZE_THRESHOLD = 300000  # Adjust this value based on expected car size
 cap = cv2.VideoCapture(rtsp_url)
 
 if not cap.isOpened():
-    print("Cannot open RTSP stream")
+    print("Cannot open RTSP stream. Set RTSP_URL environment variable first.")
     exit()
 
 # Read the first frame to initialize the background
 ret, frame1 = cap.read()
+if not ret:
+    print("Failed to read first frame from RTSP stream.")
+    cap.release()
+    exit()
+
 frame1_gray = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
 frame1_gray = cv2.GaussianBlur(frame1_gray, (21, 21), 0)
 
@@ -73,3 +77,11 @@ while cap.isOpened():
     cv2.imshow('Motion Detection', frame2)
 
     # Update the previous frame to the current
+    frame1_gray = frame2_gray
+
+    # Break the loop on 'q' key press
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()

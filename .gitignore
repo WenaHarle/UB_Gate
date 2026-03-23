@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build / generated outputs
+ocr_project/build/
+captured_cars/
+*.log
+
+# Temporary OCR outputs
+detected_license_plate.png
